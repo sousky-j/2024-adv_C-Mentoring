@@ -4,17 +4,17 @@
 #include <time.h>
 #include <malloc.h>
 int main() {
-	char arr[5][1001] = { 0 };
+	char [1001] = { 0 };
 	int len[5], max, all, t;
 	max = 0;
 	all = 0;
 	t = 0;
 	char** str = (char**)malloc(sizeof(char*) * 5);
 	for (int i = 0; i < 5; i++) {
-		scanf("%s", arr[i]);
-		len[i] = strlen(arr[i]);
+		scanf("%s", arr);
+		len[i] = strlen(arr);
 		str[i] = (char*)malloc(sizeof(char) * (len[i] + 1));
-		strcpy(str[i], arr[i]);
+		strcpy(str[i], arr);
 		all += len[i];
 		if (max < len[i]) {
 			max = len[i];
