@@ -33,10 +33,8 @@ void ArabicToRoman(int num) {
 	for (int i = 0; i < 13; i++) {
 		while (num >= arabic[i]) {
 			int need_size = strlen(romanNum) + strlen(roman[i]) + 1;
-			if (need_size > k) {
-				k *= 2;
-				romanNum = (char*)realloc(romanNum, sizeof(char) * k);
-			}
+			k += need_size;
+			romanNum = (char*)realloc(romanNum, sizeof(char) * k);
 			strcat(romanNum, roman[i]);
 			num -= arabic[i];
 		}
