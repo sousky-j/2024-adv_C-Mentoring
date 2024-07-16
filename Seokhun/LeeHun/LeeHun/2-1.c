@@ -23,9 +23,11 @@ int main() {
     printf("%d=", n);
     for (int i = 0; i < 4; i++) {
         for (int j = i; j < 3; j++) ten = ten * 10;
-        printf("%d", score[i] * ten);
+        if (score[i] != 0) {
+            printf("%d", score[i] * ten);
+            if (i < 3&& score[i+1]!=0) printf("+");
+        }
         ten = 1;
-        if (i < 3) printf("+");
         if (i == 3) printf("=");
         len = index;
     }
