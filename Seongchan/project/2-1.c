@@ -21,6 +21,9 @@ int main(){
     char *result = (char *)malloc(sizeof(char));
     int result_size = 0;
 
+    // strcat 의 동작방식을 위한 조치
+    result[0] = '\0';
+
     for(int i = 0; i <= 12; i++){
 
         while(input >= nums[i]){
@@ -32,11 +35,12 @@ int main(){
             int string_len = strlen(string[i]);
 
             // 메모리 확보: realloc -> 조건 만족
-            result_size += string_len;
-            result = (char *)realloc(result, result_size);
+            result = (char *)realloc(result, result_size + 1);
 
             // 문자 이어붙이기
             strcat(result, string[i]);
+
+            result_size += string_len;
         }
 
     }
@@ -60,6 +64,8 @@ int main(){
     printf("= ");
 
     printf("%s\n", result);
+    printf("%d\n", strlen(result));
+    printf("%d\n", result_size);
     free(result);
 
 
