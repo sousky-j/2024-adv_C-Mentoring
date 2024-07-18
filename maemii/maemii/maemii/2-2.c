@@ -22,7 +22,7 @@ void sort_arr(char** arr, int cnt) {
 int main() {
 	int cnt = 0;
 	char input[101];
-	char** arr = (char*)malloc(sizeof(char*));
+	char** arr = (char**)malloc(sizeof(char*));
 
 	while (1) {
 		gets_s(input, 101);
