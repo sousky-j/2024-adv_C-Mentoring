@@ -1,7 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <string.h>
-#include <time.h>
 #include <malloc.h>
 int main() {
 	char str[101];
@@ -15,10 +14,10 @@ int main() {
 			break;
 		}
 		else {
+			dictionary=(char**)realloc(dictionary, (count+1) * sizeof(char*));
+			dictionary[count] = (char*)malloc(sizeof(char) * (len + 1));
+			strcpy(dictionary[count], str);
 			count++;
-			dictionary=(char**)realloc(dictionary, count * sizeof(char*));
-			dictionary[count - 1] = (char*)malloc(sizeof(char) * (len + 1));
-			strcpy(dictionary[count - 1], str);
 		}
 	}
 	for (int i = 0; i < count - 1; i++) {
