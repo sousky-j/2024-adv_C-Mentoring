@@ -3,9 +3,9 @@
 #include <stdio.h>
 #include <string.h>
 
-void sort_Ascending(char** word);
-void sort_Descending(char** word);
-void write_result_to_file(char** word);
+void sort_Ascending(char B[][10]);
+void sort_Descending(char B[][10]);
+int write_result_to_file(char B[][10]);
 void print_result();
 
 int main() {
@@ -20,10 +20,12 @@ int main() {
 		fgets(A[i], 100, data);
 		for (int j = 0; j < 100; j++) {
 			if (A[i][j] >= 'A' && A[i][j] <= 'z') {
-				B[count_b][count_word++] = A[i][j];
+				B[count_b][count_word] = A[i][j];
+				count_word++;
 			}
 			else if (A[i][j] == '|') {
-				B[count_b++][count_word] = '\0';
+				B[count_b][count_word] = '\0';
+				count_b++;
 				count_word = 0;
 			}
 		}
@@ -31,47 +33,51 @@ int main() {
 	B[count_b][count_word] = '\0';
 
 	write_result_to_file(B);
-
+	
 	print_result();
 
 	fclose(data);
 }
 
-void write_result_to_file(char** word) {
+int write_result_to_file(char B[][10]) {
 	FILE* as = fopen("ascend.txt", "w");
 	FILE* des = fopen("descend.txt", "w");
 
-	sort_Ascending(word);
-	fwrite(word, sizeof(char) * 10, 20, as);
+	sort_Ascending(B);
+	for (int i = 0; i < 19; i++) {
+		fprintf(as,"%s\n",B[i]);
+	}
 
-	sort_Descending(word);
-	fwrite(word, sizeof(char) * 10, 20, des);
+	sort_Descending(B);
+	for (int i = 0; i < 19; i++) {
+		fprintf(des, "%s\n", B[i]);
+	}
 
 	fclose(as);
 	fclose(des);
 }
 
-void sort_Ascending(char** word) {
-	char* tmp;
+void sort_Ascending(char B[][10]) {
+	char tmp[10];
 	for (int j = 0; j < 19; j++) {
 		for (int k = j; k < 19; k++) {
-			if (strcmp(word[j], word[k]) > 0) {
-				tmp = word[k];
-				word[k] = word[j];
-				word[j] = tmp;
+			if (strcmp(B[j], B[k]) > 0) {
+				strcpy(tmp, B[k]);
+				strcpy(B[k], B[j]);
+				strcpy(B[j], tmp);
 			}
 		}
 	}
 }
 
-void sort_Descending(char** word) {
-	char* tmp;
+void sort_Descending(char B[][10]) {
+	char tmp[10];
 	for (int j = 0; j < 19; j++) {
 		for (int k = j; k < 19; k++) {
-			if (strcmp(word[j], word[k]) < 0) {
-				tmp = word[k];
-				word[k] = word[j];
-				word[j] = tmp;
+			if (strcmp(B[j], B[k]) < 0) {
+				strcpy(tmp, B[k]);
+				strcpy(B[k], B[j]);
+				strcpy(B[j], tmp);
 			}
 		}
 	}
@@ -81,12 +87,17 @@ void print_result() {
 	FILE* as = fopen("ascend.txt", "r");
 	FILE* des = fopen("descend.txt", "r");
 	
-	char word[10];
+	char word[11];
 
-	printf("========sorting Result========");
+	printf("========sorting Result========\n");
 	for (int i = 0; i < 19; i++) {
 		fscanf(as, "%s", word);
-		printf("[%10s]", word);
+		printf("[%10s]\n", word);
+	}
+	printf("========sorting Result========\n");
+	for (int i = 0; i < 19; i++) {
+		fscanf(des, "%s", word);
+		printf("[%10s]\n", word);
 	}
 
 	fclose(as);
