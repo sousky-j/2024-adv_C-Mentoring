@@ -54,11 +54,14 @@ int main() {
             total = printf_receipt(drink_num, snack_num, d_information, s_information);
             TOTAL += total;
         }
-        if (mode == -1) {
+        else if (mode == -1) {
             g_num = reset_gmarket(g_num, &g_information);
             c_num = reset_coupang(c_num, &c_information);
             admin_mode(TOTAL, drink_num, snack_num, g_num, c_num, d_information, s_information, g_information, c_information);
             order_printf(g_num, c_num, g_information, c_information);
+        }
+        else if (mode == 0) {
+            break;
         }
     }
     free(d_information);
